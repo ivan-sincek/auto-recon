@@ -1,0 +1,1 @@
+include src/auto_recon/wordlists/*.txt
