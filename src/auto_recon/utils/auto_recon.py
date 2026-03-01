@@ -140,21 +140,6 @@ class AutoRecon:
 		# --------------------------------
 		return tool.identifier
 
-	def assetfinder(self, tool: session.Tool):
-		session.session.update(tool.identifier)
-		# --------------------------------
-		out = directory.directory.init_tools_file("assetfinder")
-		run.single(
-			out = out,
-			cmd = [
-				"assetfinder --subs-only",
-				run.set_opt(self.__args.domain)
-			]
-		)
-		file.copy_append(out, file.file.get(config.TXT.SUBDOMAIN))
-		# --------------------------------
-		return tool.identifier
-
 	def subfinder(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# --------------------------------
@@ -380,30 +365,6 @@ class AutoRecon:
 		# --------------------------------
 		return tool.identifier
 
-	def eyewitness(self, tool: session.Tool):
-		session.session.update(tool.identifier)
-		# --------------------------------
-		dir        = directory.directory.init_tools_subdirectory("eyewitness")
-		log        = directory.directory.init_tools_file("eyewitness", "log", dir)
-		input      = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG)
-		user_agent = general.get_random_user_agent()
-		run.single(
-			cmd = [
-				"eyewitness --no-prompt --no-dns",
-				run.set_opt(tool.base.args["threads"], "--threads"          ),
-				run.set_opt(tool.base.args["timeout"], "--timeout"          ),
-				run.set_opt(tool.base.args["retries"], "--max-retries"      ),
-				run.set_opt(user_agent               , "--user-agent"       ),
-				run.set_opt(input.path               , "-f"                 ),
-				run.set_opt(log.path                 , "--selenium-log-path"),
-				run.set_opt(dir                      , "-d"                 )
-			]
-		)
-		if not directory.listdir(os.path.join(dir, "screens")):
-			directory.remove(dir)
-		# --------------------------------
-		return tool.identifier
-
 	def gau(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# --------------------------------
@@ -506,9 +467,10 @@ class AutoRecon:
 	def scrapy_scraper(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# ---------------------------------
-		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_download")
-		out   = directory.directory.init_tools_file("scrapy_scraper")
-		input = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
+		dir_js         = directory.directory.init_tools_subdirectory("scrapy_scraper_js")
+		dir_screenshot = directory.directory.init_tools_subdirectory("scrapy_scraper_screenshot")
+		out            = directory.directory.init_tools_file("scrapy_scraper")
+		input          = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
 		run.single(
 			cmd = [
 				"scrapy-scraper -a random -l",
@@ -517,7 +479,8 @@ class AutoRecon:
 				run.set_opt(tool.base.args["timeout"   ], "-t"  ),
 				run.set_opt(tool.base.args["retries"   ], "-rt" ),
 				run.set_opt(input.path                  , "-u"  ),
-				run.set_opt(dir                         , "-dir"),
+				run.set_opt(dir_js                      , "-js" ),
+				run.set_opt(dir_screenshot              , "-ss" ),
 				run.set_opt(out.path                    , "-o"  )
 			]
 		)

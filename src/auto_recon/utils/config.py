@@ -164,9 +164,6 @@ RUNTIME = {
 			args = {"total": 200}
 		),
 		Tool(
-			name = "assetfinder"
-		),
-		Tool(
 			name = "subfinder",
 			args = {"threads": THREADS_MEDIUM, "timeout": TIMEOUT_HIGH}
 		),
@@ -206,11 +203,6 @@ RUNTIME = {
 		)
 	],
 	"S-07": [
-		Tool(
-			name = "eyewitness",
-			args = {"threads": THREADS_LOW, "timeout": TIMEOUT_MEDIUM, "retries": RETRIES_MIN},
-			active = True
-		),
 		Tool(
 			name = "gau",
 			args = {"threads": THREADS_LOW, "retries": RETRIES_MAX}
