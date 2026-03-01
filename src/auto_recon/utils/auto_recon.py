@@ -404,16 +404,16 @@ class AutoRecon:
 		# --------------------------------
 		return tool.identifier
 
-	def getallurls(self, tool: session.Tool):
+	def gau(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# --------------------------------
-		out = directory.directory.init_tools_file("getallurls")
+		out = directory.directory.init_tools_file("gau")
 		run.multiple(
 			threads = tool.base.args["threads"],
 			out     = out,
 			key     = config.TXT.SUBDOMAIN_LIVE,
 			cmd     = [
-				"getallurls -random-agent",
+				"gau -random-agent",
 				run.set_opt(tool.base.args["retries"], "-retries"),
 				run.set_opt(run.PLACEHOLDER)
 			]

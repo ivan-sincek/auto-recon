@@ -2,9 +2,7 @@
 
 This is my personal, custom-built OSINT framework, designed to streamline and automate various reconnaissance tasks.
 
-This tool requires significant setup and configuration, so it likely won't work out of the box for you.
-
-I plan to containerize the framework and provide a Docker image in the future.
+This tool requires significant setup and configuration, so it likely won't work out of the box for you. Download the Docker image from [here]().
 
 The following information is being collected: [TXT files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L32) and [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L90).
 
@@ -28,13 +26,13 @@ python3 -m pip install --upgrade build
 
 python3 -m build
 
-python3 -m pip install dist/auto_recon-1.0-py3-none-any.whl
+python3 -m pip install dist/auto_recon-1.0.0-py3-none-any.whl
 ```
 
 ## Usage
 
 ```fundamental
-Auto Recon v1.0 ( github.com/ivan-sincek/auto-recon )
+Auto Recon v1.0.0 ( github.com/ivan-sincek/auto-recon )
 
 Usage:   auto-recon -d domain      -o out     [-s subdomains    ] [-r resolvers    ] [-w wordlist    ]
 Example: auto-recon -d example.com -o results [-s subdomains.txt] [-r resolvers.txt] [-w wordlist.txt]
@@ -82,10 +80,10 @@ RESTORE SESSION
 
 <p align="center">Figure 1 - Runtime</p>
 
-<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/results.png" alt="Results"></p>
+<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/collected_results.png" alt="Collected Results"></p>
 
-<p align="center">Figure 2 - Results</p>
+<p align="center">Figure 2 - Collected Results</p>
 
-<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/results_specific.png" alt="Results Specific"></p>
+<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/specific_results.png" alt="Specific Results"></p>
 
-<p align="center">Figure 3 - Results Specific</p>
+<p align="center">Figure 3 - Specific Results</p>

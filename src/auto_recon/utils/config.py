@@ -2,7 +2,7 @@
 
 import dataclasses, enum
 
-APP_VERSION = "v1.0"
+APP_VERSION = "v1.0.0"
 
 HEADING = f"Auto Recon {APP_VERSION} ( github.com/ivan-sincek/auto-recon )"
 
@@ -212,7 +212,7 @@ RUNTIME = {
 			active = True
 		),
 		Tool(
-			name = "getallurls",
+			name = "gau",
 			args = {"threads": THREADS_LOW, "retries": RETRIES_MAX}
 		),
 		Tool(
