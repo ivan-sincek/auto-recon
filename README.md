@@ -1,21 +1,29 @@
 # Auto Recon
 
-This is my personal, custom-built OSINT framework, designed to streamline and automate various reconnaissance tasks.
+A custom-built OSINT framework, which is designed to streamline and automate various reconnaissance tasks.
 
-This tool requires significant setup and configuration, so it likely won't work out of the box for you. Download the Docker image from [here]().
+This tool requires significant setup and configuration and will likely not work out of the box unless you install the Docker image from [https://hub.docker.com](https://hub.docker.com).
 
-The following information is being collected: [TXT files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L32) and [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L90).
+The following information is collected:
+
+* [TXT files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L32)
+* [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L90)
 
 The list of tools used can be found [here](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L156).
 
 ## Table of Contents
 
 * [How to Install](#how-to-install)
+    * [Docker Install \(Recommended\)](#docker-install-recommended)
     * [Build and Install From the Source](#build-and-install-from-the-source)
 * [Usage](#usage)
 * [Images](#images)
 
 ## How to Install
+
+### Docker Install (Recommended)
+
+To do.
 
 ### Build and Install From the Source
 
@@ -28,6 +36,8 @@ python3 -m build
 
 python3 -m pip install dist/auto_recon-1.0.0-py3-none-any.whl
 ```
+
+**This does not install the required tools. More information can be found in the [Dockerfile]().**
 
 ## Usage
 
@@ -84,6 +94,6 @@ RESTORE SESSION
 
 <p align="center">Figure 2 - Collected Results</p>
 
-<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/specific_results.png" alt="Specific Results"></p>
+<p align="center"><img src="https://github.com/ivan-sincek/auto-recon/blob/main/img/specific_results_example.png" alt="Specific Results Example"></p>
 
-<p align="center">Figure 3 - Specific Results</p>
+<p align="center">Figure 3 - Specific Results Example</p>

@@ -2,7 +2,7 @@
 
 from . import cert, config, debug, directory, exclusion, file, filter, general, grep, jquery, run, session, wordlist
 
-import argparse, concurrent.futures, os
+import argparse, concurrent.futures
 
 class AutoRecon:
 
@@ -50,7 +50,7 @@ class AutoRecon:
 	def chad(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# --------------------------------
-		out   = directory.directory.init_tools_file("chad_subdomain", "json")
+		out   = directory.directory.init_tools_file("chad_subdomains", "json")
 		query = f"site:*.{self.__args.domain} -www"
 		run.single(
 			cmd = [
@@ -67,8 +67,8 @@ class AutoRecon:
 		urls = ("\n").join(jquery.find(jquery.jload(out), '.[].urls[]'))
 		grep.find_append_file(urls, file.file.get(config.TXT.SUBDOMAIN), r"(?<=\:\/\/)[^\s\:\/\?\&\#\%]+")
 		# --------------------------------
-		dir   = directory.directory.init_tools_subdirectory("chad_download")
-		out   = directory.directory.init_tools_file("chad_download", "json")
+		dir   = directory.directory.init_tools_subdirectory("chad_downloads")
+		out   = directory.directory.init_tools_file("chad_downloads", "json")
 		query = f"*.{self.__args.domain} {(' OR ').join(f'ext:{ext}' for ext in ['txt', 'json', 'yml', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'zip', 'tar', 'rar', 'gzip', '7z'])}"
 		run.single(
 			cmd = [
@@ -85,7 +85,7 @@ class AutoRecon:
 			]
 		)
 		if directory.listdir(dir):
-			out = directory.directory.init_tools_file("chad_download_exiftool")
+			out = directory.directory.init_tools_file("chad_downloads_exiftool")
 			run.single(
 				out = out,
 				cmd = [
@@ -96,7 +96,7 @@ class AutoRecon:
 			result = file.read(out, array = False)
 			grep.find_append_file(result, file.file.get(config.TXT.META_PEOPLE), r"(?<=Author\:\ ).+")
 		# --------------------------------
-		out   = directory.directory.init_tools_file("chad_directory_listing", "json")
+		out   = directory.directory.init_tools_file("chad_directory_listings", "json")
 		query = f'site:*.{self.__args.domain} intitle:"index of /" intext:"parent directory"'
 		run.single(
 			cmd = [
@@ -467,10 +467,9 @@ class AutoRecon:
 	def scrapy_scraper(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# ---------------------------------
-		dir_js         = directory.directory.init_tools_subdirectory("scrapy_scraper_js")
-		dir_screenshot = directory.directory.init_tools_subdirectory("scrapy_scraper_screenshot")
-		out            = directory.directory.init_tools_file("scrapy_scraper")
-		input          = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
+		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_downloads")
+		out   = directory.directory.init_tools_file("scrapy_scraper_downloads", "json")
+		input = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
 		run.single(
 			cmd = [
 				"scrapy-scraper -a random -l",
@@ -479,12 +478,11 @@ class AutoRecon:
 				run.set_opt(tool.base.args["timeout"   ], "-t"  ),
 				run.set_opt(tool.base.args["retries"   ], "-rt" ),
 				run.set_opt(input.path                  , "-u"  ),
-				run.set_opt(dir_js                      , "-js" ),
-				run.set_opt(dir_screenshot              , "-ss" ),
+				run.set_opt(dir                         , "-d"  ),
 				run.set_opt(out.path                    , "-o"  )
 			]
 		)
-		file.copy_append(out, file.file.get(config.TXT.LINK))
+		# file.copy_append(out, file.file.get(config.TXT.LINK))
 		# --------------------------------
 		return tool.identifier
 
@@ -550,8 +548,8 @@ class AutoRecon:
 	def trufflehog(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# ---------------------------------
-		dir1 = directory.directory.init_tools_subdirectory("scrapy_scraper_download")
-		dir2 = directory.directory.init_tools_subdirectory("chad_download")
+		dir1 = directory.directory.init_tools_subdirectory("scrapy_scraper_downloads")
+		dir2 = directory.directory.init_tools_subdirectory("chad_downloads")
 		out  = directory.directory.init_tools_file("trufflehog")
 		run.single(
 			out = out,

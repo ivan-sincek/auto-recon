@@ -12,7 +12,7 @@ RUN curl -sSLf https://github.com/ivan-sincek/auto-recon/archive/refs/tags/v${AU
 	&& tar -xzf auto-recon.tar.gz \
 	&& rm auto-recon.tar.gz \
 	&& python3 -m build auto-recon-* \
-	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl bot-safe-agents==1.1 forbidden==13.4 google-chad==7.4 scrapy-scraper==4.0 snallygaster==0.0.15 \
+	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl bot-safe-agents==1.1 forbidden==13.4 google-chad==7.4 scrapy-scraper==4.2 snallygaster==0.0.15 \
 	&& rm -rf auto-recon-*
 
 RUN curl -sSLf https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \
