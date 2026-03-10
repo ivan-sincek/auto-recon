@@ -50,7 +50,7 @@ class AutoRecon:
 	def chad(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# --------------------------------
-		out   = directory.directory.init_tools_file("chad_subdomains", "json")
+		out   = directory.directory.init_tools_file("chad_subdomain", "json")
 		query = f"site:*.{self.__args.domain} -www"
 		run.single(
 			cmd = [
@@ -67,8 +67,8 @@ class AutoRecon:
 		urls = ("\n").join(jquery.find(jquery.jload(out), '.[].urls[]'))
 		grep.find_append_file(urls, file.file.get(config.TXT.SUBDOMAIN), r"(?<=\:\/\/)[^\s\:\/\?\&\#\%]+")
 		# --------------------------------
-		dir   = directory.directory.init_tools_subdirectory("chad_downloads")
-		out   = directory.directory.init_tools_file("chad_downloads", "json")
+		dir   = directory.directory.init_tools_subdirectory("chad_download")
+		out   = directory.directory.init_tools_file("chad_download", "json")
 		query = f"*.{self.__args.domain} {(' OR ').join(f'ext:{ext}' for ext in ['txt', 'json', 'yml', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'zip', 'tar', 'rar', 'gzip', '7z'])}"
 		run.single(
 			cmd = [
@@ -85,7 +85,7 @@ class AutoRecon:
 			]
 		)
 		if directory.listdir(dir):
-			out = directory.directory.init_tools_file("chad_downloads_exiftool")
+			out = directory.directory.init_tools_file("chad_download_exiftool")
 			run.single(
 				out = out,
 				cmd = [
@@ -96,7 +96,7 @@ class AutoRecon:
 			result = file.read(out, array = False)
 			grep.find_append_file(result, file.file.get(config.TXT.META_PEOPLE), r"(?<=Author\:\ ).+")
 		# --------------------------------
-		out   = directory.directory.init_tools_file("chad_directory_listings", "json")
+		out   = directory.directory.init_tools_file("chad_directory_listing", "json")
 		query = f'site:*.{self.__args.domain} intitle:"index of /" intext:"parent directory"'
 		run.single(
 			cmd = [
@@ -322,7 +322,7 @@ class AutoRecon:
 		res = grep.results(res, primary_key.value, secondary_key.value, regex)
 		res = jquery.find(res, exclusion.JQ.replace_key(exclusion.exclusion.get(exclusion.JQ.HOST), secondary_key.value)) if exclusion.exclusion.should_filter() else res
 		jquery.find_append_file(res, file.file.get(secondary_key), f'.[].{secondary_key.value}[]')
-		file.insert(jquery.jdump(res), file.file.get(config.JSON(f"{primary_key.value}_to_{secondary_key.value}")))
+		file.insert(jquery.jdump(res), file.file.get(config.JSON(primary_key.value + config.NAME_SEP + secondary_key.value)))
 
 	def httpx(self, tool: session.Tool):
 		session.session.update(tool.identifier)
@@ -467,12 +467,12 @@ class AutoRecon:
 	def scrapy_scraper(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# ---------------------------------
-		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_downloads")
-		out   = directory.directory.init_tools_file("scrapy_scraper_downloads", "json")
+		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_download")
+		out   = directory.directory.init_tools_file("scrapy_scraper_download", "json")
 		input = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
 		run.single(
 			cmd = [
-				"scrapy-scraper -a random -l",
+				"scrapy-scraper -a random",
 				run.set_opt(tool.base.args["rate_limit"], "-cr" ),
 				run.set_opt(tool.base.args["threads"   ], "-crd"),
 				run.set_opt(tool.base.args["timeout"   ], "-t"  ),
@@ -482,7 +482,25 @@ class AutoRecon:
 				run.set_opt(out.path                    , "-o"  )
 			]
 		)
-		# file.copy_append(out, file.file.get(config.TXT.LINK))
+		res = jquery.jload(out)
+		jquery.find_append_file(res, file.file.get(config.TXT.LINK_IN_SCOPE    ), '.links.in_scope[]    ')
+		jquery.find_append_file(res, file.file.get(config.TXT.LINK_OUT_OF_SCOPE), '.links.out_of_scope[]')
+		# --------------------------------
+		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_screenshot")
+		out   = directory.directory.init_tools_file("scrapy_scraper_screenshot", "json")
+		input = file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX)
+		run.single(
+			cmd = [
+				"scrapy-scraper -a random -r off -p",
+				run.set_opt(tool.base.args["rate_limit"], "-cr" ),
+				run.set_opt(tool.base.args["threads"   ], "-crd"),
+				run.set_opt(tool.base.args["timeout"   ], "-t"  ),
+				run.set_opt(tool.base.args["retries"   ], "-rt" ),
+				run.set_opt(input.path                  , "-u"  ),
+				run.set_opt(dir                         , "-ss" ),
+				run.set_opt(out.path                    , "-o"  )
+			]
+		)
 		# --------------------------------
 		return tool.identifier
 
@@ -548,8 +566,8 @@ class AutoRecon:
 	def trufflehog(self, tool: session.Tool):
 		session.session.update(tool.identifier)
 		# ---------------------------------
-		dir1 = directory.directory.init_tools_subdirectory("scrapy_scraper_downloads")
-		dir2 = directory.directory.init_tools_subdirectory("chad_downloads")
+		dir1 = directory.directory.init_tools_subdirectory("scrapy_scraper_download")
+		dir2 = directory.directory.init_tools_subdirectory("chad_download")
 		out  = directory.directory.init_tools_file("trufflehog")
 		run.single(
 			out = out,
@@ -560,7 +578,7 @@ class AutoRecon:
 				run.set_opt(dir2)
 			]
 		)
-		file.copy_append(out, file.file.get(config.TXT.SECRET))
+		file.copy_append(out, file.file.get(config.TXT.SAST_SECRET))
 		# --------------------------------
 		return tool.identifier
 
@@ -707,7 +725,8 @@ class AutoRecon:
 		with concurrent.futures.ThreadPoolExecutor(max_workers = tool.base.args["threads"]) as executor:
 			dir = directory.directory.init_tools_subdirectory("forbidden")
 			for url in file.read(file.file.get(key)):
-				out = directory.directory.init_tools_file(url.replace("//", "_").replace(".", "_").replace(":", "_"), "json", dir)
+				filename = url.replace("//", "_").replace(".", "_").replace(":", "_").replace("/", "_").strip("_")
+				out = directory.directory.init_tools_file(filename, "json", dir)
 				executor.submit(
 					run.single,
 					cmd = [

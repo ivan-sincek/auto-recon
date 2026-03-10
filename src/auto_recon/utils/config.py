@@ -59,13 +59,14 @@ class TXT(enum.Enum):
 	LEAKY_PATHS_3XX             = "leaky_paths_3xx"
 	LEAKY_PATHS_401             = "leaky_paths_401"
 	LEAKY_PATHS_403             = "leaky_paths_403"
+	LINK_IN_SCOPE               = "link_in_scope"
+	LINK_OUT_OF_SCOPE           = "link_out_of_scope"
 	META_EMAIL                  = "meta_email"
 	META_PEOPLE                 = "meta_people"
+	SAST_SECRET                 = "sast_secret"
 	SUBDOMAIN                   = "subdomain"
 	SUBDOMAIN_BROKEN            = "subdomain_broken"
 	SUBDOMAIN_ERROR             = "subdomain_error"
-	LINK                        = "link"
-	SECRET                      = "secret"
 	SUBDOMAIN_LIVE              = "subdomain_live"
 	SUBDOMAIN_LIVE_LONG         = "subdomain_live_long"
 	SUBDOMAIN_LIVE_LONG_2XX     = "subdomain_live_long_2xx"
@@ -87,20 +88,22 @@ class TXT(enum.Enum):
 
 # ----------------------------------------
 
+NAME_SEP = "_to_"
+
 class JSON(enum.Enum):
 	"""
 	Enum containing JSON file keys.\n
 	Edit or add more JSON files here.
 	"""
-	CERT_SUBJECT_COMMON_NAME_TO_IP = "cert_subject_common_name_to_ip"
-	IP_TO_SUBDOMAIN                = "ip_to_subdomain"
-	IP_TO_WHOIS_ASN                = "ip_to_whois_asn"
-	SUBDOMAIN_ERROR_TO_CNAME       = "subdomain_error_to_cname"
-	SUBDOMAIN_TO_CERT              = "subdomain_to_cert"
-	SUBDOMAIN_TO_CNAME             = "subdomain_to_cname"
-	SUBDOMAIN_TO_CSP               = "subdomain_to_csp"
-	SUBDOMAIN_TO_IP                = "subdomain_to_ip"
-	SUBDOMAIN_TO_STATUS            = "subdomain_to_status"
+	CERT_SUBJECT_COMMON_NAME_TO_IP = f"cert_subject_common_name{NAME_SEP}ip"
+	IP_TO_SUBDOMAIN                = f"ip{NAME_SEP}subdomain"
+	IP_TO_WHOIS_ASN                = f"ip{NAME_SEP}whois_asn"
+	SUBDOMAIN_ERROR_TO_CNAME       = f"subdomain_error{NAME_SEP}cname"
+	SUBDOMAIN_TO_CERT              = f"subdomain{NAME_SEP}cert"
+	SUBDOMAIN_TO_CNAME             = f"subdomain{NAME_SEP}cname"
+	SUBDOMAIN_TO_CSP               = f"subdomain{NAME_SEP}csp"
+	SUBDOMAIN_TO_IP                = f"subdomain{NAME_SEP}ip"
+	SUBDOMAIN_TO_STATUS            = f"subdomain{NAME_SEP}status"
 
 # ----------------------------------------
 

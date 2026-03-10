@@ -6,13 +6,13 @@ ENV DEBIAN_FRONTEND=noninteractive \
 	RUST_VERSION=1.93.1 \
 	PATH="/usr/local/go/bin:/usr/local/cargo/bin:${PATH}"
 
-RUN apt update && apt install -y --no-install-recommends ca-certificates curl dnsutils nmap openssl
+RUN apt update && apt install -y --no-install-recommends ca-certificates curl dnsutils nmap openssl libimage-exiftool-perl
 
 RUN curl -sSLf https://github.com/ivan-sincek/auto-recon/archive/refs/tags/v${AUTO_RECON_VERSION}.tar.gz -o auto-recon.tar.gz \
 	&& tar -xzf auto-recon.tar.gz \
 	&& rm auto-recon.tar.gz \
 	&& python3 -m build auto-recon-* \
-	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl bot-safe-agents==1.1 forbidden==13.4 google-chad==7.4 scrapy-scraper==4.2 snallygaster==0.0.15 \
+	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl \
 	&& rm -rf auto-recon-*
 
 RUN curl -sSLf https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \
