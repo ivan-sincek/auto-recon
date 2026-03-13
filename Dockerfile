@@ -21,11 +21,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python3 -m pip install --no-cache-dir --upgrade \
 	pip \
-	buil \
+	build \
 	setuptools \
 	wheel \
+	forbidden==13.4 \
+	google-chad==7.5 \
+	scrapy-scraper==4.0 \
+	snallygaster==0.0.15 \
 	git+https://github.com/ivan-sincek/auto-recon@v1.0.0 \
-	git+https://github.com/darkoperator/dnsrecon@1.6.0 \
+	git+https://github.com/darkoperator/dnsrecon@1.5.3 \
 	git+https://github.com/laramies/theHarvester@4.10.0
 
 RUN curl -sSLf https://go.dev/dl/go1.26.0.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \

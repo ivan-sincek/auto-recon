@@ -15,6 +15,7 @@ classifiers = [
 	"Operating System :: POSIX :: Linux"
 ]
 dependencies = [
+	"bot-safe-agents>=1.1",
 	"colorama>=0.4.6",
 	"cryptography>=46.0.5",
 	"jq>=1.11.0",
@@ -22,13 +23,7 @@ dependencies = [
 	"regex>=2026.2.28",
 	"tabulate>=0.9.0",
 	"termcolor>=3.3.0",
-	"tldextract>=5.3.1",
-
-	"bot-safe-agents==1.1",
-	"forbidden==13.4",
-	"google-chad==7.5",
-	"scrapy-scraper==4.0",
-	"snallygaster==0.0.15"
+	"tldextract>=5.3.1"
 ]
 
 [project.urls]
