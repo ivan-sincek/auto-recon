@@ -2,7 +2,7 @@
 
 import dataclasses, enum
 
-APP_VERSION = "v1.0.0"
+APP_VERSION = "v1.1.0"
 
 HEADING = f"Auto Recon {APP_VERSION} ( github.com/ivan-sincek/auto-recon )"
 

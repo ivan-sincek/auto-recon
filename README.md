@@ -7,42 +7,43 @@ This tool requires significant setup and configuration and will likely not work 
 The following information is collected:
 
 * [TXT files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L32)
-* [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L90)
+* [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L93)
 
 The list of tools used can be found [here](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L156).
 
 ## Table of Contents
 
 * [How to Install](#how-to-install)
-    * [Docker Install \(Recommended\)](#docker-install-recommended)
-    * [Build and Install From the Source](#build-and-install-from-the-source)
+    * [Build and Install From Dockerfile](#build-and-install-from-dockerfile)
 * [Usage](#usage)
 * [Images](#images)
 
 ## How to Install
 
-### Docker Install (Recommended)
+### Build and Install From Dockerfile
 
-To do.
+On Linux, run:
 
-### Build and Install From the Source
-
-```bash
-git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
-
-python3 -m pip install --upgrade build
-
-python3 -m build
-
-python3 -m pip install dist/auto_recon-1.0.0-py3-none-any.whl
+```fundamental
+docker build --build-arg OS=linux --build-arg ARCH=amd64 -t autorecon:1.1.0 .
 ```
 
-**This method does not install all the required tools. More information can be found in the [Dockerfile](https://github.com/ivan-sincek/auto-recon/blob/main/Dockerfile).**
+---
+
+Windows OS is not supported.
+
+---
+
+On macOS, run:
+
+```fundamental
+docker build --build-arg OS=darwin --build-arg ARCH=arm64 -t autorecon:1.1.0 .
+```
 
 ## Usage
 
 ```fundamental
-Auto Recon v1.0.0 ( github.com/ivan-sincek/auto-recon )
+Auto Recon v1.1.0 ( github.com/ivan-sincek/auto-recon )
 
 Usage:   auto-recon -d domain      -o out     [-s subdomains    ] [-r resolvers    ] [-w wordlist    ]
 Example: auto-recon -d example.com -o results [-s subdomains.txt] [-r resolvers.txt] [-w wordlist.txt]
