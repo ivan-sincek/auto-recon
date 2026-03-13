@@ -54,7 +54,7 @@ RUN curl -sSLOf https://go.dev/dl/go1.25.0.linux-amd64.tar.gz -o go.tar.gz \
 	&& go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.7.0 \
 	&& nuclei -update-templates
 
-RUN apt purge -y --auto-remove git && apt autoremove -y && apt clean \
+RUN apt-get purge -y --auto-remove git && apt-get autoremove -y && apt-get clean \
 	&& rm -rf /root/.cache/* /tmp/* /var/cache/apt/* /var/lib/apt/lists/* /var/tmp/*
 
 RUN groupadd -r autorecon && useradd -r -m -d /home/autorecon -g autorecon autorecon
