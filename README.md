@@ -2,7 +2,7 @@
 
 A custom-built OSINT framework, which is designed to streamline and automate various reconnaissance tasks.
 
-This tool requires significant setup and configuration and will likely not work out of the box unless you install the Docker image from [https://hub.docker.com](https://hub.docker.com).
+This tool requires significant setup and configuration and will likely not work out of the box unless it is built and installed from the Dockerfile.
 
 The following information is collected:
 
@@ -20,24 +20,12 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 
 ## How to Install
 
-### Build and Install From Dockerfile
+### Build and Install From the Dockerfile
 
-On Linux, run:
+```bash
+git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
 
-```fundamental
-docker build --build-arg OS=linux --build-arg ARCH=amd64 -t autorecon:1.1.0 .
-```
-
----
-
-Windows OS is not supported.
-
----
-
-On macOS, run:
-
-```fundamental
-docker build --build-arg OS=darwin --build-arg ARCH=arm64 -t autorecon:1.1.0 .
+docker build -t autorecon:1.1.0 .
 ```
 
 ## Usage
