@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 WORKDIR /home/autorecon
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	build-essential \
 	ca-certificates \
 	curl \
 	dnsutils \
@@ -46,15 +47,15 @@ RUN curl -sSLOf https://go.dev/dl/go1.25.0.linux-amd64.tar.gz -o go.tar.gz \
 	&& rm trufflehog.tar.gz \
 	&& go install github.com/lc/gau/v2/cmd/gau@v2.2.4 \
 	&& go install github.com/owasp-amass/amass/v5/cmd/amass@v5.0.1 \
+	&& go install github.com/utkusen/urlhunter@v0.2.0 \
 	&& go install github.com/projectdiscovery/asnmap/cmd/asnmap@v1.1.1 \
 	&& go install github.com/projectdiscovery/httpx/cmd/httpx@v1.8.1 \
 	&& go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@v2.12.0 \
 	&& go install github.com/projectdiscovery/uncover/cmd/uncover@v1.2.0 \
-	&& go install github.com/utkusen/urlhunter@v0.2.0 \
 	&& go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@v3.7.0 \
 	&& nuclei -update-templates
 
-RUN apt-get purge -y --auto-remove git && apt-get autoremove -y && apt-get clean \
+RUN apt-get purge -y --auto-remove build-essential git && apt-get autoremove -y && apt-get clean \
 	&& rm -rf /root/.cache/* /tmp/* /var/cache/apt/* /var/lib/apt/lists/* /var/tmp/*
 
 RUN groupadd -r autorecon && useradd -r -m -d /home/autorecon -g autorecon autorecon
