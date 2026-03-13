@@ -1,33 +1,34 @@
 FROM python:3.14-slim-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive \
-	JDK_VERSION=17 \
-	GO_VERSION=1.26.0 \
-	RUST_VERSION=1.93.1 \
 	PATH="/usr/local/go/bin:/usr/local/cargo/bin:${PATH}"
 
-RUN apt update && apt install -y --no-install-recommends ca-certificates curl dnsutils libimage-exiftool-perl nmap openjdk-${JDK_VERSION}-jdk-headless openssl sslscan
+WORKDIR /home/autorecon
 
-RUN curl -sSLf https://github.com/ivan-sincek/auto-recon/archive/refs/tags/v1.0.0.tar.gz -o auto-recon.tar.gz \
-	&& tar -xzf auto-recon.tar.gz \
-	&& rm auto-recon.tar.gz \
-	&& python3 -m build auto-recon-* \
-	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl \
-	&& rm -rf auto-recon-* \
-	curl -sSLf https://github.com/laramies/theHarvester/archive/refs/tags/4.10.0.tar.gz -o theHarvester.tar.gz \
-	&& tar -xzf theHarvester.tar.gz \
-	&& rm theHarvester.tar.gz \
-	&& python3 -m build theHarvester-* \
-	&& python3 -m pip install --upgrade --no-cache-dir theHarvester-*/dist/auto_recon-*-py3-none-any.whl \
-	&& rm -rf theHarvester-* \
-	curl -sSLf https://github.com/darkoperator/dnsrecon/archive/refs/tags/1.6.0.tar.gz -o dnsrecon.tar.gz \
-	&& tar -xzf dnsrecon.tar.gz \
-	&& rm dnsrecon.tar.gz \
-	&& python3 -m build dnsrecon-* \
-	&& python3 -m pip install --upgrade --no-cache-dir dnsrecon-*/dist/auto_recon-*-py3-none-any.whl \
-	&& rm -rf dnsrecon-*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	ca-certificates \
+	curl \
+	dnsutils \
+	git \
+	libcurl4-gnutls-dev \
+	libimage-exiftool-perl \
+	librtmp-dev \
+	nmap \
+	openjdk-17-jdk-headless \
+	openssl \
+	sslscan \
+	&& rm -rf /var/lib/apt/lists/*
 
-RUN curl -sSLf https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \
+RUN python3 -m pip install --no-cache-dir --upgrade \
+	pip \
+	buil \
+	setuptools \
+	wheel \
+	git+https://github.com/ivan-sincek/auto-recon@v1.0.0 \
+	git+https://github.com/darkoperator/dnsrecon@1.6.0 \
+	git+https://github.com/laramies/theHarvester@4.10.0
+
+RUN curl -sSLf https://go.dev/dl/go1.26.0.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \
 	&& tar -C /usr/local -xzf go.linux-amd64.tar.gz \
 	&& rm go.linux-amd64.tar.gz \
 	&& go install github.com/lc/gau/v2/cmd/gau@v2.2.4 \
@@ -40,13 +41,12 @@ RUN curl -sSLf https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.linux-
 	&& go install github.com/trufflesecurity/trufflehog/v3@v3.93.6 \
 	&& go install github.com/utkusen/urlhunter@v0.2.0
 
-RUN curl -sSLf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain ${RUST_VERSION} \
-	&& rustup default ${RUST_VERSION} \
+RUN curl -sSLf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.93.1 \
+	&& rustup default 1.93.1 \
 	&& chmod -R a+w /usr/local/rustup /usr/local/cargo \
 	&& cargo install feroxbuster --version 2.13.1
 
 RUN groupadd -r autorecon && useradd -r -g autorecon autorecon
 USER autorecon
-WORKDIR /home/autorecon
 
-CMD ["auto-recon --help"]
+CMD ["auto-recon", "--help"]
