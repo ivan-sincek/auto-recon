@@ -37,7 +37,7 @@ python3 -m build
 python3 -m pip install dist/auto_recon-1.0.0-py3-none-any.whl
 ```
 
-**This does not install the required tools. More information can be found in the [Dockerfile]().**
+**This method does not install all the required tools. More information can be found in the [Dockerfile](https://github.com/ivan-sincek/auto-recon/blob/main/Dockerfile).**
 
 ## Usage
 

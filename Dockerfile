@@ -1,19 +1,31 @@
 FROM python:3.14-slim-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive \
-	AUTO_RECON_VERSION=1.0.0 \
+	JDK_VERSION=17 \
 	GO_VERSION=1.26.0 \
 	RUST_VERSION=1.93.1 \
 	PATH="/usr/local/go/bin:/usr/local/cargo/bin:${PATH}"
 
-RUN apt update && apt install -y --no-install-recommends ca-certificates curl dnsutils nmap openssl libimage-exiftool-perl
+RUN apt update && apt install -y --no-install-recommends ca-certificates curl dnsutils libimage-exiftool-perl nmap openjdk-${JDK_VERSION}-jdk-headless openssl sslscan
 
-RUN curl -sSLf https://github.com/ivan-sincek/auto-recon/archive/refs/tags/v${AUTO_RECON_VERSION}.tar.gz -o auto-recon.tar.gz \
+RUN curl -sSLf https://github.com/ivan-sincek/auto-recon/archive/refs/tags/v1.0.0.tar.gz -o auto-recon.tar.gz \
 	&& tar -xzf auto-recon.tar.gz \
 	&& rm auto-recon.tar.gz \
 	&& python3 -m build auto-recon-* \
 	&& python3 -m pip install --upgrade --no-cache-dir auto-recon-*/dist/auto_recon-*-py3-none-any.whl \
-	&& rm -rf auto-recon-*
+	&& rm -rf auto-recon-* \
+	curl -sSLf https://github.com/laramies/theHarvester/archive/refs/tags/4.10.0.tar.gz -o theHarvester.tar.gz \
+	&& tar -xzf theHarvester.tar.gz \
+	&& rm theHarvester.tar.gz \
+	&& python3 -m build theHarvester-* \
+	&& python3 -m pip install --upgrade --no-cache-dir theHarvester-*/dist/auto_recon-*-py3-none-any.whl \
+	&& rm -rf theHarvester-* \
+	curl -sSLf https://github.com/darkoperator/dnsrecon/archive/refs/tags/1.6.0.tar.gz -o dnsrecon.tar.gz \
+	&& tar -xzf dnsrecon.tar.gz \
+	&& rm dnsrecon.tar.gz \
+	&& python3 -m build dnsrecon-* \
+	&& python3 -m pip install --upgrade --no-cache-dir dnsrecon-*/dist/auto_recon-*-py3-none-any.whl \
+	&& rm -rf dnsrecon-*
 
 RUN curl -sSLf https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz -o go.linux-amd64.tar.gz \
 	&& tar -C /usr/local -xzf go.linux-amd64.tar.gz \
@@ -36,3 +48,5 @@ RUN curl -sSLf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-to
 RUN groupadd -r autorecon && useradd -r -g autorecon autorecon
 USER autorecon
 WORKDIR /home/autorecon
+
+CMD ["auto-recon --help"]
