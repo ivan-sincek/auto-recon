@@ -38,10 +38,10 @@ RUN curl -sSLf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-to
 	&& cargo install feroxbuster --locked --version 2.13.1 \
 	&& rm -rf ${CARGO_HOME}/git ${CARGO_HOME}/registry /root/.cargo
 
-RUN curl -sSLOf https://go.dev/dl/go1.25.0.linux-amd64.tar.gz -o go.tar.gz \
+RUN curl -sSLf https://go.dev/dl/go1.25.0.linux-amd64.tar.gz -o go.tar.gz \
 	&& tar -C /usr/local -xzf go.tar.gz \
 	&& rm go.tar.gz \
-	&& curl -sSLOf https://github.com/trufflesecurity/trufflehog/releases/download/v3.93.8/trufflehog_3.93.8_darwin_amd64.tar.gz -o trufflehog.tar.gz \
+	&& curl -sSLf https://github.com/trufflesecurity/trufflehog/releases/download/v3.93.8/trufflehog_3.93.8_darwin_amd64.tar.gz -o trufflehog.tar.gz \
 	&& tar -C /usr/local/bin -xzf trufflehog.tar.gz \
 	&& chmod +x /usr/local/bin/trufflehog \
 	&& rm trufflehog.tar.gz \
