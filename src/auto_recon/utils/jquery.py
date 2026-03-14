@@ -56,6 +56,8 @@ def find(data: typing.Any | str, query: str, sort = True, dump = False) -> typin
 			if tmp:
 				if not array.is_nested(tmp):
 					tmp = array.unique(tmp, sort)
+			else:
+				debug.debug.log_debug(f"utils.jquery.find() > {query}", "No results")
 	except Exception as ex:
 		debug.debug.log_error(f"utils.jquery.find() > {query}", ex)
 	if dump:
