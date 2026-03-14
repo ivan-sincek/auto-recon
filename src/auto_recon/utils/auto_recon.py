@@ -121,7 +121,7 @@ class AutoRecon:
 		out = directory.directory.init_tools_file("theharvester", "json")
 		run.single(
 			cmd = [
-				"theHarvester -b baidu,brave,certspotter,crtsh,dnsdumpster,duckduckgo,hackertarget,otx,rapiddns,subdomaincenter,subdomainfinderc99,urlscan,virustotal,yahoo",
+				"theHarvester -b baidu,certspotter,chaos,commoncrawl,crtsh,duckduckgo,gitlab,hackertarget,hudsonrock,otx,rapiddns,robtex,subdomaincenter,subdomainfinderc99,thc,threatcrowd,urlscan,waybackarchive,yahoo",
 				run.set_opt(tool.base.args["total"], "-l"),
 				run.set_opt(self.__args.resolvers  , "-r"),
 				run.set_opt(self.__args.domain     , "-d"),
