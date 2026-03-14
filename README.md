@@ -15,6 +15,7 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 
 * [How to Install](#how-to-install)
     * [Build and Install From Dockerfile](#build-and-install-from-dockerfile)
+* [How to Run](#how-to-run)
 * [Usage](#usage)
 * [Images](#images)
 
@@ -25,9 +26,17 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 ```bash
 git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
 
-docker build --platform=linux/amd64 -t autorecon:1.1.0 .
+docker build -t auto-recon:1.1.0 .
+```
 
-docker run --platform=linux/amd64 --rm autorecon:1.1.0
+## How to Run
+
+```bash
+mkdir workdir # place all your wordlists here
+
+docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.com -o results
+
+docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.com -o results -s subdomains.txt -r resolvers.txt -w wordlist.txt
 ```
 
 ## Usage

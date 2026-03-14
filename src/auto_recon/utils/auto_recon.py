@@ -332,7 +332,7 @@ class AutoRecon:
 		input = file.file.get(config.TXT.SUBDOMAIN)
 		run.single(
 			cmd = [
-				"httpx-toolkit -silent -nc -random-agent -p 80,81,443,4443,8000,8008,8080,8081,8403,8443,8888,9000,9008,9080,9081,9403,9443",
+				"httpx -silent -nc -random-agent -p 80,81,443,4443,8000,8008,8080,8081,8403,8443,8888,9000,9008,9080,9081,9403,9443",
 				run.set_opt(tool.base.args["threads"], "-t"      ),
 				run.set_opt(tool.base.args["timeout"], "-timeout"),
 				run.set_opt(tool.base.args["retries"], "-retries"),
