@@ -15,13 +15,13 @@ ENV GOBIN=/go/bin
 RUN apt-get update && apt-get install -y --no-install-recommends autoconf automake build-essential libtool pkg-config
 
 RUN git clone https://github.com/openvenues/libpostal && cd libpostal \
-	&& ./bootstrap.sh && ./configure \
+	&& ./bootstrap.sh && ./configure --datadir=/usr/local/share/libpostal \
 	&& make -j $(nproc) && make install \
 	&& ldconfig \
 	&& go install github.com/owasp-amass/amass/v5/cmd/amass@v5.0.1
 
 RUN git clone --depth 1 --branch v3.93.8 https://github.com/trufflesecurity/trufflehog && cd trufflehog \
-	&& go build -o ${GOBIN}
+	&& go build -trimpath -o ${GOBIN}/trufflehog
 
 RUN go install github.com/lc/gau/v2/cmd/gau@v2.2.4 \
 	&& go install github.com/projectdiscovery/asnmap/cmd/asnmap@v1.1.1 \
@@ -56,15 +56,16 @@ RUN python3 -m pip install --upgrade --no-cache-dir pip build setuptools wheel \
 	git+https://github.com/ivan-sincek/scrapy-scraper@v4.0 \
 	git+https://github.com/laramies/theHarvester@4.10.0
 
-COPY --from=rust-tools /usr/local/cargo/bin/feroxbuster /usr/local/bin/feroxbuster
-COPY --from=go-tools /go/bin/ /usr/local/bin/
-
-RUN nuclei -update-templates
-
 RUN apt-get purge -y --auto-remove git \
 	&& apt-get auto-remove -y \
 	&& apt-get clean \
 	&& rm -rf /root/.cache/* /tmp/* /var/cache/apt/* /var/lib/apt/lists/* /var/tmp/* 
+
+COPY --from=rust-tools /usr/local/cargo/bin/feroxbuster /usr/local/bin/feroxbuster
+COPY --from=go-tools /go/bin/ /usr/local/bin/
+COPY --from=go-tools /usr/local/lib/libpostal.so.* /usr/local/lib/
+
+RUN ldconfig && nuclei -update-templates
 
 RUN groupadd -r auto-recon && useradd -r -m -d /home/auto-recon -g auto-recon auto-recon && chown -R auto-recon:auto-recon /home/auto-recon
 USER auto-recon

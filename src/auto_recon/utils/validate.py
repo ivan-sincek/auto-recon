@@ -115,6 +115,8 @@ class Validate:
 			success, message = file.validate(self.__args.exclusions)
 			if not success:
 				self.__error(message)
+			else:
+				self.__args.exclusions = os.path.abspath(self.__args.exclusions)
 
 	def __validate_subdomains(self):
 		"""
@@ -124,6 +126,8 @@ class Validate:
 			success, message = file.validate(self.__args.subdomains)
 			if not success:
 				self.__error(message)
+			else:
+				self.__args.subdomains = os.path.abspath(self.__args.subdomains)
 
 	def __validate_resolvers(self):
 		"""
@@ -133,6 +137,8 @@ class Validate:
 			success, message = file.validate(self.__args.resolvers)
 			if not success:
 				self.__error(message)
+			else:
+				self.__args.resolvers = os.path.abspath(self.__args.resolvers)
 
 	def __validate_wordlist(self):
 		"""
@@ -142,6 +148,8 @@ class Validate:
 			success, message = file.validate(self.__args.wordlist)
 			if not success:
 				self.__error(message)
+			else:
+				self.__args.wordlist = os.path.abspath(self.__args.wordlist)
 
 	def __validate_collaborator(self):
 		"""

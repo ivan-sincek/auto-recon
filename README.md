@@ -9,12 +9,12 @@ The following information is collected:
 * [TXT files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L32)
 * [JSON files](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L93)
 
-The list of tools used can be found [here](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L156).
+The list of tools used can be found [here](https://github.com/ivan-sincek/auto-recon/blob/main/src/auto_recon/utils/config.py#L159).
 
 ## Table of Contents
 
 * [How to Install](#how-to-install)
-    * [Build and Install From Dockerfile](#build-and-install-from-dockerfile)
+    * [Build and Install From Dockerfile](#build-and-install-from-the-dockerfile)
 * [How to Run](#how-to-run)
 * [Usage](#usage)
 * [Images](#images)
@@ -26,7 +26,7 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 ```bash
 git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
 
-docker build -t auto-recon:1.1.0 .
+docker build --no-cache -t auto-recon:1.1.0 .
 ```
 
 ## How to Run
