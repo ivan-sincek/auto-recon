@@ -64,6 +64,9 @@ RUN apt-get purge -y --auto-remove git \
 COPY --from=rust-tools /usr/local/cargo/bin/feroxbuster /usr/local/bin/feroxbuster
 COPY --from=go-tools /go/bin/ /usr/local/bin/
 COPY --from=go-tools /usr/local/lib/libpostal.so.* /usr/local/lib/
+COPY --from=go-tools /usr/local/share/libpostal /usr/local/share/libpostal
+
+ENV LIBPOSTAL_DATA_DIR=/usr/local/share/libpostal
 
 RUN ldconfig && nuclei -update-templates
 
