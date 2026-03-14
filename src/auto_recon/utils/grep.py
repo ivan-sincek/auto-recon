@@ -20,8 +20,9 @@ def find(text: str, query: str, sort = True) -> list[str]:
 			if tmp:
 				if not array.is_nested(tmp):
 					tmp = array.unique(tmp, sort)
+				debug.debug.log_extraction(f"utils.grep.find() > {query}", "OK")
 			else:
-				debug.debug.log_extraction(f"utils.grep.find() > {query}", "No results")
+				debug.debug.log_extraction(f"utils.grep.find() > {query}", "EMPTY")
 	except Exception as ex:
 		debug.debug.log_error(f"utils.grep.find() > {query}", ex)
 	return tmp
