@@ -136,7 +136,7 @@ class Intrusive(str, enum.Enum):
 class Tool:
 	"""
 	Class for storing tool details.\n
-	Use 'args' attribute to specify additional arguments for the tool.
+	Use `args` attribute to specify additional arguments for the tool.
 	"""
 	name     : str
 	args     : dict[str | int | float] = dataclasses.field(default_factory = dict)

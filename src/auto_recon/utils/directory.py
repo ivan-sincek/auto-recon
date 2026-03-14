@@ -7,7 +7,7 @@ import os, shutil
 def validate(directory: str):
 	"""
 	Validate a directory.\n
-	Success flag is 'True' if 'directory' exists, is a regular directory, has a read permission, and is not empty.
+	Success flag is `True` if `directory` exists, is a regular directory, has a read permission, and is not empty.
 	"""
 	success = False
 	message = ""
@@ -24,7 +24,7 @@ def validate(directory: str):
 def validate_silent(directory: str):
 	"""
 	Silently validate a directory.\n
-	Returns 'True' if 'directory' exists, is a regular directory, has a read permission, and is not empty.
+	Returns `True` if `directory` exists, is a regular directory, has a read permission, and is not empty.
 	"""
 	success, ignored = validate(directory)
 	return success

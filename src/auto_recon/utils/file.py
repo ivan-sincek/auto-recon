@@ -18,7 +18,7 @@ class SafeFile:
 
 def get_path(file: SafeFile | str):
 	"""
-	If 'file' is an instance of 'SafeFile' class, return 'file.path'; otherwise, return 'file'.
+	If `file` is an instance of `SafeFile` class, return `file.path`; otherwise, return `file`.
 	"""
 	return file.path if isinstance(file, SafeFile) else file
 
@@ -27,7 +27,7 @@ def get_path(file: SafeFile | str):
 def validate(file: str):
 	"""
 	Validate a file.\n
-	Success flag is 'True' if 'file' exists, is a regular file, has a read permission, and is not empty.
+	Success flag is `True` if `file` exists, is a regular file, has a read permission, and is not empty.
 	"""
 	success = False
 	message = ""
@@ -44,7 +44,7 @@ def validate(file: str):
 def validate_silent(file: str):
 	"""
 	Silently validate a file.\n
-	Returns 'True' if 'file' exists, is a regular file, has a read permission, and is not empty.
+	Returns `True` if `file` exists, is a regular file, has a read permission, and is not empty.
 	"""
 	success, ignored = validate(file)
 	return success
@@ -103,7 +103,7 @@ def __read_array(file: str) -> list[str]:
 def read(file: SafeFile | str, array = True):
 	"""
 	Silently validate and read a file as text or line by line, and append the lines to a list.\n
-	Whitespace will be stripped from the text, or, if 'array' is set to 'True', from each line, and empty lines will be removed.
+	Whitespace will be stripped from the text, or, if `array` is set to `True`, from each line, and empty lines will be removed.
 	"""
 	if isinstance(file, SafeFile):
 		with file.lock:
@@ -172,7 +172,7 @@ def copy_append(source: SafeFile | str, destination: SafeFile | str, array = Tru
 	Copy the content of the source, append it to the destination, and return the appended content.\n
 	Whitespace will be stripped from the content, or if content is a list, from each string in the list, and empty strings will be removed.\n
 	If the content is empty, nothing will be written.\n
-	'array' applies only when reading the source.
+	`array` applies only when reading the source.
 	"""
 	tmp = read(source, array)
 	append(tmp, destination)
@@ -183,7 +183,7 @@ def copy_insert(source: SafeFile | str, destination: SafeFile | str, array = Tru
 	Copy the content of the source, insert it to the destination, and return the inserted content.\n
 	Whitespace will be stripped from the content, or if content is a list, from each string in the list, and empty strings will be removed.\n
 	If the content is empty, nothing will be written.\n
-	'array' applies only when reading the source.
+	`array` applies only when reading the source.
 	"""
 	tmp = read(source, array)
 	insert(tmp, destination)
@@ -219,7 +219,7 @@ class File:
 	def get(self, key: config.TXT | config.JSON) -> SafeFile:
 		"""
 		Get the thread-safe class object to a file for the specified key.\n
-		Returns 'None' if the specified key does not exist.
+		Returns `None` if the specified key does not exist.
 		"""
 		file = None
 		try:

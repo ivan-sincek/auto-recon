@@ -20,12 +20,12 @@ def set_opt(value: str | int | float, opt = "", escape = True):
 
 PLACEHOLDER = "<placeholder/>"
 """
-A placeholder that will be replaced in 'run.multiple()' with each entry from the 'config.TXT' file.
+A placeholder that will be replaced in `run.multiple()` with each entry from the `config.TXT` file.
 """
 
 def replace_placeholder(cmd: list[str], new = "") -> list[str]:
 	"""
-	Replace all occurrences of 'tool.PLACEHOLDER' in each part of the command with a new value.
+	Replace all occurrences of `tool.PLACEHOLDER` in each part of the command with a new value.
 	"""
 	tmp = []
 	for part in cmd:

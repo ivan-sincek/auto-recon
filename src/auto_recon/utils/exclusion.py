@@ -57,7 +57,7 @@ class JQ(enum.Enum):
 	@classmethod
 	def replace_key(cls, query: str, new: str):
 		"""
-		Replace all occurrences of 'exclusion.PLACEHOLDER_KEY' in a filter with a new value.
+		Replace all occurrences of `exclusion.PLACEHOLDER_KEY` in a filter with a new value.
 		"""
 		return query.replace(PLACEHOLDER_KEY, new)
 
@@ -146,7 +146,7 @@ class Exclusion:
 
 	def should_filter(self):
 		"""
-		Returns 'True' if there are any exclusions.
+		Returns `True` if there are any exclusions.
 		"""
 		return bool(self.__exclusions)
 

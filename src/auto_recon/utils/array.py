@@ -2,14 +2,14 @@
 
 def is_nested(array: list):
 	"""
-	Returns 'True' if 'array' contains a list, dictionary, or tuple.\n
-	For example, '[[...]]', '[{...}]', '[(...)]', etc.
+	Returns `True` if `array` contains a list, dictionary, or tuple.\n
+	For example, `[[...]]`, `[{...}]`, `[(...)]`, etc.
 	"""
 	return any(isinstance(entry, (list, dict, tuple)) for entry in array)
 
 def remove_empty_strings(array: list[str]) -> list[str]:
 	"""
-	Strip whitespace from each string in 'array', and remove empty strings.
+	Strip whitespace from each string in `array`, and remove empty strings.
 	"""
 	tmp = []
 	for entry in array:
@@ -20,13 +20,13 @@ def remove_empty_strings(array: list[str]) -> list[str]:
 
 def to_lowercase(array: list[str]):
 	"""
-	Convert all strings in 'array' to lowercase.
+	Convert all strings in `array` to lowercase.
 	"""
 	return [entry.lower() for entry in array]
 
 def unique(array: list[str], sort = True):
 	"""
-	Unique sort all strings in 'array' in descending order.\n
+	Unique sort all strings in `array` in descending order.\n
 	Primarily, to ensure that HTTPS URLs appear at the top of the list.
 	"""
 	seen = set()
@@ -37,8 +37,8 @@ def unique(array: list[str], sort = True):
 
 def join(array: list) -> str:
 	"""
-	Join 'array' using a single space as the separator.\n
-	Each element in 'array' will be cast to a string, stripped of whitespace, and removed if empty.
+	Join `array` using a single space as the separator.\n
+	Each element in `array` will be cast to a string, stripped of whitespace, and removed if empty.
 	"""
 	tmp = []
 	for entry in array:
@@ -49,7 +49,7 @@ def join(array: list) -> str:
 
 def filter_blacklist(array: list[str], keywords: list[str], case_sensitive = False, sort = True):
 	"""
-	Remove all strings from 'array' that contain a blacklisted keyword.\n
+	Remove all strings from `array` that contain a blacklisted keyword.\n
 	Returns a unique [sorted] list.
 	"""
 	tmp = []
@@ -68,7 +68,7 @@ def filter_blacklist(array: list[str], keywords: list[str], case_sensitive = Fal
 
 def filter_whitelist(array: list[str], keywords: list[str], case_sensitive = False, sort = True):
 	"""
-	Remove all strings from 'array' that do not contain a whitelisted keyword.\n
+	Remove all strings from `array` that do not contain a whitelisted keyword.\n
 	Returns a unique [sorted] list.
 	"""
 	tmp = []

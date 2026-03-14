@@ -92,7 +92,7 @@ class Validate:
 
 	def __error(self, message: str):
 		"""
-		Set the success flag to 'False' to prevent the main task from executing, and print an error message.
+		Set the success flag to `False` to prevent the main task from executing, and print an error message.
 		"""
 		self.__success = False
 		general.print_error(message)

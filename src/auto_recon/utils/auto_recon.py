@@ -129,13 +129,13 @@ class AutoRecon:
 			]
 		)
 		res = jquery.jload(out)
-		jquery.find_append_file(res, file.file.get(config.TXT.IP        ), '.ips    // empty | .[]                                              ')
-		jquery.find_append_file(res, file.file.get(config.TXT.IP        ), '.hosts  // empty | .[] | select(contains(":")      ) | split(":")[1]')
-		jquery.find_append_file(res, file.file.get(config.TXT.META_EMAIL), '.emails // empty | .[]                                              ')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN ), '.hosts  // empty | .[] | select(contains(":") | not)                ')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN ), '.hosts  // empty | .[] | select(contains(":")      ) | split(":")[0]')
+		jquery.find_append_file(res, file.file.get(config.TXT.IP        ), '.ips // empty | .[]'                                          )
+		jquery.find_append_file(res, file.file.get(config.TXT.IP        ), '.hosts // empty | .[] | select(contains(":")) | split(":")[1]')
+		jquery.find_append_file(res, file.file.get(config.TXT.META_EMAIL), '.emails // empty | .[]'                                       )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN ), '.hosts // empty | .[] | select(contains(":") | not)'          )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN ), '.hosts // empty | .[] | select(contains(":")) | split(":")[0]')
 		"""
-		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ASN ), '.asns   // empty | .[]                                              ')
+		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ASN ), '.asns // empty | .[]'                                         )
 		"""
 		# --------------------------------
 		return tool.identifier
@@ -241,13 +241,13 @@ class AutoRecon:
 
 	def __dnsrecon_parse_result(self, out: file.SafeFile | str):
 		res = jquery.find(jquery.jload(out), exclusion.exclusion.get(exclusion.JQ.DNSRECON)) if exclusion.exclusion.should_filter() else jquery.jload(out)
-		jquery.find_append_file(res, file.file.get(config.TXT.DNS_MAIL_EXCHANGE), '.[] | select(.type | test("^MX$"             )) | .exchange // empty                  ')
-		jquery.find_append_file(res, file.file.get(config.TXT.DNS_NAME_SERVER  ), '.[] | select(.type | test("^NS$"             )) | .target   // empty                  ')
-		jquery.find_append_file(res, file.file.get(config.TXT.DNS_TEXT         ), '.[] | select(.type | test("^TXT$"            )) | .strings  // empty                  ')
-		jquery.find_append_file(res, file.file.get(config.TXT.IP               ), '.[] | select(.type | test("^A$|^CNAME$|^PTR$")) | .address  // empty                  ')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN        ), '.[] | select(.type | test("^A$|^CNAME$"      )) | .name     // empty, .target // empty')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN        ), '.[] | select(.type | test("^SRV$"            )) | .target   // empty                  ')
-		jquery.find_append_file(res, file.file.get(config.TXT.CNAME            ), '.[] | select(.type | test("^CNAME$"          )) | .target   // empty                  ')
+		jquery.find_append_file(res, file.file.get(config.TXT.DNS_MAIL_EXCHANGE), '.[] | select(.type | test("^MX$")) | .exchange // empty'                     )
+		jquery.find_append_file(res, file.file.get(config.TXT.DNS_NAME_SERVER  ), '.[] | select(.type | test("^NS$")) | .target // empty'                       )
+		jquery.find_append_file(res, file.file.get(config.TXT.DNS_TEXT         ), '.[] | select(.type | test("^TXT$")) | .strings // empty'                     )
+		jquery.find_append_file(res, file.file.get(config.TXT.IP               ), '.[] | select(.type | test("^A$|^CNAME$|^PTR$")) | .address // empty'         )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN        ), '.[] | select(.type | test("^A$|^CNAME$")) | .name // empty, .target // empty')
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN        ), '.[] | select(.type | test("^SRV$")) | .target // empty'                      )
+		jquery.find_append_file(res, file.file.get(config.TXT.CNAME            ), '.[] | select(.type | test("^CNAME$")) | .target // empty'                    )
 
 	def dig(self, tool: session.Tool):
 		session.session.update(tool.identifier)
@@ -343,13 +343,13 @@ class AutoRecon:
 		)
 		res = jquery.jload_array(out)
 		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG        ), '.[] | select(."status_code" | tostring | test("^2|^3|^4")).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX    ), '.[] | select(."status_code" | tostring | test("^2"      )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX_4XX), '.[] | select(."status_code" | tostring | test("^2|^4"   )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_3XX    ), '.[] | select(."status_code" | tostring | test("^3"      )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_401    ), '.[] | select(."status_code" | tostring | test("^401$"   )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_403    ), '.[] | select(."status_code" | tostring | test("^403$"   )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_4XX    ), '.[] | select(."status_code" | tostring | test("^4"      )).url')
-		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_5XX    ), '.[] | select(."status_code" | tostring | test("^5"      )).url')
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX    ), '.[] | select(."status_code" | tostring | test("^2")).url'      )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_2XX_4XX), '.[] | select(."status_code" | tostring | test("^2|^4")).url'   )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_3XX    ), '.[] | select(."status_code" | tostring | test("^3")).url'      )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_401    ), '.[] | select(."status_code" | tostring | test("^401$")).url'   )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_403    ), '.[] | select(."status_code" | tostring | test("^403$")).url'   )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_4XX    ), '.[] | select(."status_code" | tostring | test("^4")).url'      )
+		jquery.find_append_file(res, file.file.get(config.TXT.SUBDOMAIN_LIVE_LONG_5XX    ), '.[] | select(."status_code" | tostring | test("^5")).url'      )
 		# --------------------------------
 		res = jquery.find_insert_file(res, file.file.get(config.JSON.SUBDOMAIN_TO_CSP), 'group_by(.url) | map({subdomain: .[0].url, csp: map(.csp.domains // empty | .[])}) | map(select(.csp | length > 0)) | .[]', dump = True)
 		jquery.find_append_file(res, file.file.get(config.TXT.CSP), '.[].csp[]')
@@ -399,9 +399,9 @@ class AutoRecon:
 			]
 		)
 		res = jquery.find_insert_file(jquery.jload_array(out), file.file.get(config.JSON.IP_TO_WHOIS_ASN), 'map({ip: .input, asn: .as_number, org: .as_name, cidr: .as_range}) | .[]', dump = True)
-		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ASN ), '.[].asn   ')
+		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ASN ), '.[].asn'   )
 		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_CIDR), '.[].cidr[]')
-		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ORG ), '.[].org   ')
+		jquery.find_append_file(res, file.file.get(config.TXT.WHOIS_ORG ), '.[].org'   )
 		# --------------------------------
 		return tool.identifier
 
@@ -483,7 +483,7 @@ class AutoRecon:
 			]
 		)
 		res = jquery.jload(out)
-		jquery.find_append_file(res, file.file.get(config.TXT.LINK_IN_SCOPE    ), '.links.in_scope[]    ')
+		jquery.find_append_file(res, file.file.get(config.TXT.LINK_IN_SCOPE    ), '.links.in_scope[]'    )
 		jquery.find_append_file(res, file.file.get(config.TXT.LINK_OUT_OF_SCOPE), '.links.out_of_scope[]')
 		# --------------------------------
 		dir   = directory.directory.init_tools_subdirectory("scrapy_scraper_screenshot")
@@ -602,11 +602,11 @@ class AutoRecon:
 		)
 		result = jquery.jload_array(out)
 		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS        ), '.[] | select(."status" | tostring | test("^2|^3|^401$|^403$")).url')
-		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_2XX    ), '.[] | select(."status" | tostring | test("^2"               )).url')
-		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_2XX_4XX), '.[] | select(."status" | tostring | test("^2|^401$|^403$"   )).url')
-		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_3XX    ), '.[] | select(."status" | tostring | test("^3"               )).url')
-		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_401    ), '.[] | select(."status" | tostring | test("^401$"            )).url')
-		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_403    ), '.[] | select(."status" | tostring | test("^403$"            )).url')
+		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_2XX    ), '.[] | select(."status" | tostring | test("^2")).url'               )
+		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_2XX_4XX), '.[] | select(."status" | tostring | test("^2|^401$|^403$")).url'   )
+		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_3XX    ), '.[] | select(."status" | tostring | test("^3")).url'               )
+		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_401    ), '.[] | select(."status" | tostring | test("^401$")).url'            )
+		jquery.find_append_file(result, file.file.get(config.TXT.LEAKY_PATHS_403    ), '.[] | select(."status" | tostring | test("^403$")).url'            )
 		# --------------------------------
 		return tool.identifier
 
@@ -647,11 +647,11 @@ class AutoRecon:
 			)
 			res = jquery.jload_array(out)
 			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY        ), '.[] | select(."status" | tostring | test("^2|^3|^401$|^403$")).url')
-			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_2XX    ), '.[] | select(."status" | tostring | test("^2"               )).url')
-			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_2XX_4XX), '.[] | select(."status" | tostring | test("^2|^401$|^403$"   )).url')
-			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_3XX    ), '.[] | select(."status" | tostring | test("^3"               )).url')
-			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_401    ), '.[] | select(."status" | tostring | test("^401$"            )).url')
-			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_403    ), '.[] | select(."status" | tostring | test("^403$"            )).url')
+			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_2XX    ), '.[] | select(."status" | tostring | test("^2")).url'               )
+			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_2XX_4XX), '.[] | select(."status" | tostring | test("^2|^401$|^403$")).url'   )
+			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_3XX    ), '.[] | select(."status" | tostring | test("^3")).url'               )
+			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_401    ), '.[] | select(."status" | tostring | test("^401$")).url'            )
+			jquery.find_append_file(res, file.file.get(config.TXT.DIRECTORY_403    ), '.[] | select(."status" | tostring | test("^403$")).url'            )
 		# --------------------------------
 		return tool.identifier
 

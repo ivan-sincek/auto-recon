@@ -71,8 +71,8 @@ def replace(text: str, query: str, new = "", count = 0):
 def results(results: list[run.Result], primary_key: str, secondary_key: str, query = "") -> list[dict[str, list[str] | str]]:
 	"""
 	Parse results.\n
-	The primary key stores 'result.data', while the secondary key stores 'result.response'.\n
-	The query applies only to 'result.response'.
+	The primary key stores `result.data`, while the secondary key stores `result.response`.\n
+	The query applies only to `result.response`.
 	"""
 	tmp = []
 	for result in results:

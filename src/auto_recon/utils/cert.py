@@ -33,7 +33,7 @@ def decode_pem(text: str, out: file.SafeFile | str = None) -> list[cryptography.
 def __get_attribute(cert: cryptography.x509.Certificate, attribute: cryptography.x509.ObjectIdentifier, subject: bool) -> list[str]:
 	"""
 	Get an attribute from a certificate.\n
-	Set 'subject' to 'True' to get an attribute from the certificate's subject, or to 'False' to get it from the certificate's issuer.
+	Set `subject` to `True` to get an attribute from the certificate's subject, or to `False` to get it from the certificate's issuer.
 	"""
 	tmp = []
 	section = cert.subject if subject else cert.issuer
@@ -48,7 +48,7 @@ def __get_attribute(cert: cryptography.x509.Certificate, attribute: cryptography
 def __get_common_name(cert: cryptography.x509.Certificate, subject: bool):
 	"""
 	Get the common name from a certificate.\n
-	Set 'subject' to 'True' to get an attribute from the certificate's subject, or to 'False' to get it from the certificate's issuer.\n
+	Set `subject` to `True` to get an attribute from the certificate's subject, or to `False` to get it from the certificate's issuer.\n
 	Returns a unique sorted list.
 	"""
 	return array.filter_blacklist(__get_attribute(cert, cryptography.x509.NameOID.COMMON_NAME, subject), IGNORED_CA, case_sensitive = False, sort = True)
@@ -72,7 +72,7 @@ def get_issuer_common_name(cert: cryptography.x509.Certificate):
 def __get_org_name(cert: cryptography.x509.Certificate, subject: bool):
 	"""
 	Get the organization name from a certificate.\n
-	Set 'subject' to 'True' to get an attribute from the certificate's subject, or to 'False' to get it from the certificate's issuer.\n
+	Set `subject` to `True` to get an attribute from the certificate's subject, or to `False` to get it from the certificate's issuer.\n
 	Returns a unique sorted list.
 	"""
 	return array.filter_blacklist(__get_attribute(cert, cryptography.x509.NameOID.ORGANIZATION_NAME, subject), IGNORED_CA, case_sensitive = False, sort = True)
@@ -96,7 +96,7 @@ def get_issuer_org_name(cert: cryptography.x509.Certificate):
 def __get_org_unit_name(cert: cryptography.x509.Certificate, subject: bool):
 	"""
 	Get the organization unit name from a certificate.\n
-	Set 'subject' to 'True' to get an attribute from the certificate's subject, or to 'False' to get it from the certificate's issuer.\n
+	Set `subject` to `True` to get an attribute from the certificate's subject, or to `False` to get it from the certificate's issuer.\n
 	Returns a unique sorted list.
 	"""
 	return array.filter_blacklist(__get_attribute(cert, cryptography.x509.NameOID.ORGANIZATIONAL_UNIT_NAME, subject), IGNORED_CA, case_sensitive = False, sort = True)

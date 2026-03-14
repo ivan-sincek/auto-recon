@@ -5,13 +5,13 @@ from . import array as __array, config, debug, exclusion, file as __file, grep, 
 '''
 def remove_www(text: str):
 	"""
-	Remove the first match from a text using the '^www\.|(?<=\:\/\/)www\.' RegEx pattern.
+	Remove the first match from a text using the `^www\.|(?<=\:\/\/)www\.` RegEx pattern.
 	"""
 	return grep.replace(text, r"^www\.|(?<=\:\/\/)www\.", "", 1)
 
 def remove_www_array(text_array: list[str], sort=True):
 	"""
-	Remove the first match from each string in a text array using the '^www\.|(?<=\:\/\/)www\.' RegEx pattern.\n
+	Remove the first match from each string in a text array using the `^www\.|(?<=\:\/\/)www\.` RegEx pattern.\n
 	Returns a unique [sorted] list.
 	"""
 	tmp = []
@@ -45,7 +45,7 @@ def remove_wildcards_array(text_array: list[str], sort=True):
 
 def prepend_asn(text: str):
 	"""
-	Convert text to uppercase and prepend a missing 'AS' prefix.\n
+	Convert text to uppercase and prepend a missing `AS` prefix.\n
 	In other words, normalize ASN numbers.
 	"""
 	text = text.upper()
@@ -55,7 +55,7 @@ def prepend_asn(text: str):
 
 def prepend_asn_array(text_array: list[str], sort=True):
 	"""
-	Convert each string in a text array to uppercase and prepend a missing 'AS' prefix.\n
+	Convert each string in a text array to uppercase and prepend a missing `AS` prefix.\n
 	In other words, normalize ASN numbers.\n
 	Returns a unique [sorted] list.
 	"""

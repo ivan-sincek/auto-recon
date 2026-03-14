@@ -33,7 +33,7 @@ def jload_array(path: file.SafeFile | str) -> list[typing.Any]:
 def jdump(data: typing.Any):
 	"""
 	Serialize data to a JSON string.\n
-	Returns an empty string if data is empty, for example, '[]', '{}', etc.
+	Returns an empty string if data is empty, for example, `[]`, `{}`, etc.
 	"""
 	tmp = ""
 	try:
@@ -47,7 +47,7 @@ def find(data: typing.Any | str, query: str, sort = True, dump = False) -> typin
 	"""
 	Extract all matches from data using the specified JQ pattern.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
-	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, '[]', '{}', etc.
+	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, `[]`, `{}`, etc.
 	"""
 	tmp = []
 	try:
@@ -68,7 +68,7 @@ def find_append_file(data: typing.Any | str, out: file.SafeFile | str, query: st
 	"""
 	Extract all matches from data using the specified JQ pattern, append them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
-	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, '[]', '{}', etc.
+	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, `[]`, `{}`, etc.
 	"""
 	tmp = find(data, query, sort, dump)
 	file.append(tmp, out)
@@ -78,7 +78,7 @@ def find_insert_file(data: typing.Any | str, out: file.SafeFile | str, query: st
 	"""
 	Extract all matches from data using the specified JQ pattern, insert them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
-	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, '[]', '{}', etc.
+	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, `[]`, `{}`, etc.
 	"""
 	tmp = find(data, query, sort, dump)
 	file.insert(tmp, out)
@@ -87,8 +87,8 @@ def find_insert_file(data: typing.Any | str, out: file.SafeFile | str, query: st
 def results(results: list[run.Result], primary_key: str, secondary_key: str, query = "") -> list[dict[str, typing.Any | str]]:
 	"""
 	Parse results.\n
-	The primary key stores 'result.data', while the secondary key stores 'result.response'.\n
-	The query applies only to 'result.response'.
+	The primary key stores `result.data`, while the secondary key stores `result.response`.\n
+	The query applies only to `result.response`.
 	"""
 	tmp = []
 	for result in results:
