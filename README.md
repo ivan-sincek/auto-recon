@@ -25,7 +25,9 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 ```bash
 git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
 
-docker build -t autorecon:1.1.0 .
+docker build --platform=linux/amd64 -t autorecon:1.1.0 .
+
+docker run --platform=linux/amd64 --rm autorecon:1.1.0
 ```
 
 ## Usage
