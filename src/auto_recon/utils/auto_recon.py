@@ -374,8 +374,8 @@ class AutoRecon:
 			out     = out,
 			key     = config.TXT.SUBDOMAIN_LIVE,
 			cmd     = [
-				"gau -random-agent",
-				run.set_opt(tool.base.args["retries"], "-retries"),
+				"gau",
+				run.set_opt(tool.base.args["retries"], "--retries"),
 				run.set_opt(run.PLACEHOLDER)
 			]
 		)

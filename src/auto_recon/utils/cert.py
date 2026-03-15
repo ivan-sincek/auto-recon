@@ -19,7 +19,7 @@ def decode_pem(text: str, out: file.SafeFile | str = None) -> list[cryptography.
 	"""
 	tmp = []
 	stringified = []
-	for pem in grep.find(text, r"-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----", sort = False):
+	for pem in grep.find(text, r"-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----", sort = False, log = False):
 		try:
 			tmp.append(cryptography.x509.load_pem_x509_certificate(pem.encode(ENCODING)))
 			if out:

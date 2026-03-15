@@ -55,8 +55,8 @@ def extract_netloc(url: str):
 	"""
 	domain, port = "", 0
 	if domain := extract_fqdn(url):
-		if ports := grep.find(url, (r"(?<={0}\:)\d{{1,5}}").format(domain.replace(r".", r"\."))):
+		if ports := grep.find(url, (r"(?<={0}\:)\d{{1,5}}").format(domain.replace(r".", r"\.")), log = False):
 			port = int(ports[0])
-		elif schemes := grep.find(url, r"^.+(?=\:\/\/)"):
+		elif schemes := grep.find(url, r"^.+(?=\:\/\/)", log = False):
 			port = 443 if schemes[0].lower() == "https" else 80
 	return domain, port

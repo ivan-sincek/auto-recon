@@ -46,8 +46,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	openssl \
 	sslscan
 
-RUN python3 -m pip install --upgrade --no-cache-dir playwright && playwright install --with-deps chromium
-
 RUN python3 -m pip install --upgrade --no-cache-dir pip build setuptools wheel \
 	git+https://github.com/darkoperator/dnsrecon@1.5.3 \
 	git+https://github.com/hannob/snallygaster@v0.0.15 \
@@ -56,6 +54,8 @@ RUN python3 -m pip install --upgrade --no-cache-dir pip build setuptools wheel \
 	git+https://github.com/ivan-sincek/forbidden@v13.4 \
 	git+https://github.com/ivan-sincek/scrapy-scraper@v4.0 \
 	git+https://github.com/laramies/theHarvester@4.10.0
+
+RUN python3 -m pip install --upgrade --no-cache-dir playwright && playwright install --with-deps chromium
 
 RUN apt-get purge -y --auto-remove git \
 	&& apt-get auto-remove -y \

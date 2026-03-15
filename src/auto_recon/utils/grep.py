@@ -78,7 +78,7 @@ def results(results: list[run.Result], primary_key: str, secondary_key: str, que
 	for result in results:
 		if result.response:
 			if query:
-				result.response = find(result.response, query)
+				result.response = find(result.response, query, log = False)
 			if result.response:
 				tmp.append({
 					primary_key: result.data,
