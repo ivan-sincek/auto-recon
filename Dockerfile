@@ -14,12 +14,6 @@ ENV GOBIN=/go/bin
 
 RUN apt-get update && apt-get install -y --no-install-recommends autoconf automake build-essential libtool pkg-config
 
-# ENV CGO_ENABLED=1
-# RUN git clone https://github.com/openvenues/libpostal && cd libpostal \
-# 	&& ./bootstrap.sh && ./configure --datadir=/usr/local/share/libpostal \
-# 	&& make -j $(nproc) && make install \
-# 	&& ldconfig
-
 RUN git clone --depth 1 --branch v3.93.8 https://github.com/trufflesecurity/trufflehog && cd trufflehog \
 	&& go build -trimpath -o ${GOBIN}/trufflehog
 
@@ -55,7 +49,8 @@ RUN python3 -m pip install --upgrade --no-cache-dir pip build setuptools wheel \
 	git+https://github.com/ivan-sincek/scrapy-scraper@v4.0 \
 	git+https://github.com/laramies/theHarvester@4.10.0
 
-RUN python3 -m pip install --upgrade --no-cache-dir playwright && playwright install --with-deps chromium
+ENV PLAYWRIGHT_BROWSERS_PATH=/home/auto-recon/pw-browsers
+RUN python3 -m pip install --upgrade --no-cache-dir playwright && python3 -m playwright install --with-deps chromium
 
 RUN apt-get purge -y --auto-remove git \
 	&& apt-get auto-remove -y \
@@ -65,12 +60,7 @@ RUN apt-get purge -y --auto-remove git \
 COPY --from=rust-tools /usr/local/cargo/bin/feroxbuster /usr/local/bin/feroxbuster
 COPY --from=go-tools /go/bin/ /usr/local/bin/
 
-# COPY --from=go-tools /usr/local/lib/libpostal* /usr/local/lib/
-# COPY --from=go-tools /usr/local/share/libpostal /usr/local/share/libpostal
-# ENV LIBPOSTAL_DATA_DIR=/usr/local/share/libpostal
-# RUN ldconfig
-
-RUN nuclei -update-templates
+RUN nuclei -update-templates -ud /home/auto-recon/nuclei-templates
 
 RUN groupadd -r auto-recon && useradd -r -m -d /home/auto-recon -g auto-recon auto-recon && chown -R auto-recon:auto-recon /home/auto-recon
 USER auto-recon
