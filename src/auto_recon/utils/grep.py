@@ -8,7 +8,7 @@ FLAGS = re.MULTILINE | re.IGNORECASE
 
 # ----------------------------------------
 
-def find(text: str, query: str, sort = True) -> list[str]:
+def find(text: str, query: str, sort = True, log = True) -> list[str]:
 	"""
 	Extract all matches from a text using the specified RegEx pattern.\n
 	Returns a unique [sorted] list if the result is not a nested list.
@@ -20,28 +20,27 @@ def find(text: str, query: str, sort = True) -> list[str]:
 			if tmp:
 				if not array.is_nested(tmp):
 					tmp = array.unique(tmp, sort)
-				debug.debug.log_extraction(f"utils.grep.find() > {query}", "OK")
-			else:
-				debug.debug.log_extraction(f"utils.grep.find() > {query}", "EMPTY")
+			if log:
+				debug.debug.log_extraction(f"utils.grep.find() > {query} > {'Extracted' if tmp else 'Empty'}")
 	except Exception as ex:
 		debug.debug.log_error(f"utils.grep.find() > {query}", ex)
 	return tmp
 
-def find_append_file(text: str, out: file.SafeFile | str, query: str, sort = True):
+def find_append_file(text: str, out: file.SafeFile | str, query: str, sort = True, log = True):
 	"""
 	Extract all matches from a text using the specified RegEx pattern, append them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.
 	"""
-	tmp = find(text, query, sort)
+	tmp = find(text, query, sort, log)
 	file.append(tmp, out)
 	return tmp
 
-def find_insert_file(text: str, out: file.SafeFile | str, query: str, sort = True):
+def find_insert_file(text: str, out: file.SafeFile | str, query: str, sort = True, log = True):
 	"""
 	Extract all matches from a text using the specified RegEx pattern, insert them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.
 	"""
-	tmp = find(text, query, sort)
+	tmp = find(text, query, sort, log)
 	file.insert(tmp, out)
 	return tmp
 

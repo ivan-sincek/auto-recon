@@ -9,7 +9,7 @@ def remove_www(text: str):
 	"""
 	return grep.replace(text, r"^www\.|(?<=\:\/\/)www\.", "", 1)
 
-def remove_www_array(text_array: list[str], sort=True):
+def remove_www_array(text_array: list[str], sort = True):
 	"""
 	Remove the first match from each string in a text array using the `^www\.|(?<=\:\/\/)www\.` RegEx pattern.\n
 	Returns a unique [sorted] list.
@@ -31,7 +31,7 @@ def remove_wildcards(text: str):
 	text = grep.replace(text, r"^\.|(?<=\:\/\/)\.|\.(?=\:)|\.$")
 	return text
 
-def remove_wildcards_array(text_array: list[str], sort=True):
+def remove_wildcards_array(text_array: list[str], sort = True):
 	"""
 	Remove wildcards and other irregularities from each string in a text array.\n
 	Returns a unique [sorted] list.
@@ -53,7 +53,7 @@ def prepend_asn(text: str):
 		text = f"AS{text}"
 	return text
 
-def prepend_asn_array(text_array: list[str], sort=True):
+def prepend_asn_array(text_array: list[str], sort = True):
 	"""
 	Convert each string in a text array to uppercase and prepend a missing `AS` prefix.\n
 	In other words, normalize ASN numbers.\n
@@ -103,7 +103,7 @@ def ports(key: config.TXT, port_ignore: int, port_keep: int):
 	"""
 	Filter ports.
 	"""
-	valid, invalid, ignored = [], [], []; safe_file = __file.file.get(key); text = __file.read(safe_file, array=False)
+	valid, invalid, ignored = [], [], []; safe_file = __file.file.get(key); text = __file.read(safe_file, array = False)
 	for entry in __file.read(safe_file):
 		domain, port = url.extract_netloc(entry)
 		if not domain or not port:
@@ -241,9 +241,9 @@ def file(key: config.TXT | config.JSON):
 		# --------------------------------
 		safe_file = __file.file.get(key)
 		data = jquery.jload(safe_file)
-		keys = jquery.find(data, ".[0] | keys_unsorted[0]", sort=False)
+		keys = jquery.find(data, ".[0] | keys_unsorted[0]", sort = False, log = False)
 		if not keys:
 			__file.remove_silent(safe_file.path)
 		else:
-			jquery.find_insert_file(data, safe_file, f"unique_by(.{keys[0]}) | sort_by(.{keys[0]}) | reverse | .[]", sort=False, dump=True)
+			jquery.find_insert_file(data, safe_file, f"unique_by(.{keys[0]}) | sort_by(.{keys[0]}) | reverse | .[]", sort = False, dump = True, log = False)
 		# --------------------------------

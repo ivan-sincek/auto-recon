@@ -43,7 +43,7 @@ def jdump(data: typing.Any):
 		debug.debug.log_error(f"utils.jquery.jdump()", ex)
 	return tmp
 
-def find(data: typing.Any | str, query: str, sort = True, dump = False) -> typing.Any | str:
+def find(data: typing.Any | str, query: str, sort = True, dump = False, log = True) -> typing.Any | str:
 	"""
 	Extract all matches from data using the specified JQ pattern.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
@@ -56,32 +56,31 @@ def find(data: typing.Any | str, query: str, sort = True, dump = False) -> typin
 			if tmp:
 				if not array.is_nested(tmp):
 					tmp = array.unique(tmp, sort)
-				debug.debug.log_extraction(f"utils.jquery.find() > {query}", "OK")
-			else:
-				debug.debug.log_extraction(f"utils.jquery.find() > {query}", "EMPTY")
+			if log:
+				debug.debug.log_extraction(f"utils.jquery.find() > {query} > {'Extracted' if tmp else 'Empty'}")
 	except Exception as ex:
 		debug.debug.log_error(f"utils.jquery.find() > {query}", ex)
 	if dump:
 		tmp = jdump(tmp)
 	return tmp
 
-def find_append_file(data: typing.Any | str, out: file.SafeFile | str, query: str, sort = True, dump = False):
+def find_append_file(data: typing.Any | str, out: file.SafeFile | str, query: str, sort = True, dump = False, log = True):
 	"""
 	Extract all matches from data using the specified JQ pattern, append them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
 	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, `[]`, `{}`, etc.
 	"""
-	tmp = find(data, query, sort, dump)
+	tmp = find(data, query, sort, dump, log)
 	file.append(tmp, out)
 	return tmp
 
-def find_insert_file(data: typing.Any | str, out: file.SafeFile | str, query: str, sort = True, dump = False):
+def find_insert_file(data: typing.Any | str, out: file.SafeFile | str, query: str, sort = True, dump = False, log = True):
 	"""
 	Extract all matches from data using the specified JQ pattern, insert them to a file, and return the result.\n
 	Returns a unique [sorted] list if the result is not a nested list.\n
 	Dumping will serialize the result to a JSON string; returns an empty string if the result is empty, for example, `[]`, `{}`, etc.
 	"""
-	tmp = find(data, query, sort, dump)
+	tmp = find(data, query, sort, dump, log)
 	file.insert(tmp, out)
 	return tmp
 
