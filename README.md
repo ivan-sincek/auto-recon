@@ -32,11 +32,17 @@ docker build --no-cache -t auto-recon:1.1.0 .
 ## How to Run
 
 ```bash
-mkdir workdir # place all your wordlists here
+mkdir workdir # move all your wordlists here
 
 docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.com -o results
 
 docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.com -o results -s subdomains.txt -r resolvers.txt -w wordlist.txt
+```
+
+To debug or add API keys for individual tools, open the shell by running:
+
+```bash
+docker run --rm -it --entrypoint bash auto-recon:1.1.0
 ```
 
 ## Usage

@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	curl \
 	dnsutils \
 	git \
+	jq \
 	libimage-exiftool-perl \
 	nmap \
 	openjdk-17-jdk-headless \
