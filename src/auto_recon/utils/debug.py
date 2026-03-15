@@ -69,7 +69,10 @@ class Debug:
 		Log to a file.
 		"""
 		if self.__initialized:
-			file.append(f"[ {general.get_timestamp()} ] {key}: {title}\n{str(body)}", out)
+			text = f"[ {general.get_timestamp()} ] {key}: {title}"
+			if body:
+				text = f"{text}\n{str(body)}"
+			file.append(text, out)
 
 debug = Debug()
 """

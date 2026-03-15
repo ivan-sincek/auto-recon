@@ -54,7 +54,7 @@ def single(cmd: list[str], out: file.SafeFile = None, data = ""):
 		response = response.decode(file.ENCODING)
 		if out:
 			file.append(response, out)
-		debug.debug.log_debug(cmd, response)
+	debug.debug.log_debug(cmd, response)
 	return Result(response, data)
 
 def multiple(cmd: list[str], key: config.TXT, out: file.SafeFile = None, threads = 5) -> list[Result]:
