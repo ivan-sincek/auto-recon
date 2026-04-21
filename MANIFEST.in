@@ -1,0 +1,2 @@
+include src/auto_recon/*.py
+include src/auto_recon/wordlists/*.txt
