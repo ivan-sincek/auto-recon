@@ -1,8 +1,10 @@
 # Auto Recon
 
-A custom-built OSINT framework, which is designed to streamline and automate various reconnaissance tasks. Work in progress...
+A custom-built OSINT framework, which is designed to streamline and automate various reconnaissance tasks and more. Work in progress...
 
-This tool requires significant setup and configuration and will likely not work out of the box unless it is built and installed from the Dockerfile.
+This tool requires significant setup and configuration.
+
+Tested on Kali Linux v2026.1 (64-bit).
 
 The following information is collected:
 
@@ -45,6 +47,8 @@ git clone https://github.com/ivan-sincek/auto-recon && cd auto-recon
 
 docker build --no-cache -t auto-recon:1.1.0 .
 ```
+
+_DNSRecon might not properly load the provided wordlist when it is passed from outside the container environment._
 
 ## How to Run
 
