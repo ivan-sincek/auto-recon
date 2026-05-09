@@ -19,7 +19,7 @@ The list of tools used can be found [here](https://github.com/ivan-sincek/auto-r
 	* [Build and Install From the Source](#build-and-install-from-the-source)
 	* [Build and Install From the Dockerfile](#build-and-install-from-the-dockerfile)
 * [How to Run](#how-to-run)
-	* [Normal Run](#normal-run)
+	* [Standalone Run](#standalone-run)
 	* [Docker Run](#docker-run)
 * [Usage](#usage)
 * [Images](#images)
@@ -52,7 +52,7 @@ _DNSRecon might not properly load the provided wordlist when it is passed from o
 
 ## How to Run
 
-### Normal Run
+### Standalone Run
 
 ```bash
 auto-recon -d example.com -o results
@@ -69,6 +69,8 @@ docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.
 
 docker run --rm -it -v "./workdir:/home/auto-recon" auto-recon:1.1.0 -d example.com -o results -s subdomains.txt -r resolvers.txt -w wordlist.txt
 ```
+
+_DNSRecon might not properly load the provided wordlist when it is passed from outside the container environment._
 
 To debug or add API keys for individual tools, open the shell by running:
 
