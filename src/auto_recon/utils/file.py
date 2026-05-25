@@ -14,7 +14,7 @@ class SafeFile:
 	Initialize a thread-safe file.
 	"""
 	path: str
-	lock: threading.Lock = threading.Lock()
+	lock: threading.Lock = dataclasses.field(init = False, default_factory = threading.Lock)
 
 def get_path(file: SafeFile | str):
 	"""
